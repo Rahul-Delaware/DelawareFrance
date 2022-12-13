@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog title="{Email>/Title}" contentWidth="60%" contentHeight="60%" verticalScrolling="false" resizable="true">
+		<!--<VBox class="sapUiSmallMargin">-->
+			<f:SimpleForm id="SimpleFormChange354" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3"
+				labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" emptySpanS="1" columnsXL="2"
+				columnsL="2" columnsM="2" singleContainerFullSize="false">
+				<f:content>
+					<Label text="{Email>/FrmT}" required="true"/>
+					<Input id="From" value="{Email>/From}" editable="false"/>
+					<Label text="{Email>/ToT}" required="true"/>
+					<Input id="To" value="{Email>/To}"/>
+					<Label text="{Email>/CcT}"/>
+					<Input id="Cc" value="{Email>/Cc}"/>
+					<Label text="{Email>/ObjT}" required="true"/>
+					<Input id="Obj" value="{Email>/Obj}"/>
+					<Label text="{Email>/TxtT}"/>
+					<TextArea id="Txt" rows="10" width="100%" value="{Email>/Txt}"/>
+					<core:Title text="{i18n>LASTSENT}" />
+					<Label text="{Email>/DatumT}" />
+					<Input id="sent_date" value="{Email>/Datum}" editable="false"/>
+					<Label text="{Email>/UzeitT}"/>
+					<Input id="sent_time" value="{Email>/Uzeit}" editable="false" />
+					<Label text="{Email>/IDT}"/>
+					<Input id="ID" value="{Email>/ID}" editable="false" />
+				</f:content>				
+			</f:SimpleForm>
+		<!--</VBox>-->
+		<beginButton>
+			<Button id="Send" text="{i18n>Send}"   icon="sap-icon://paper-plane" press="_onSendPurchaseEmailPopup"/>
+		</beginButton>
+		<endButton>
+			<Button id="Canc" text="{i18n>Cancel}" icon="sap-icon://sys-cancel" press="_onCancelPurchaseEmailPopup"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

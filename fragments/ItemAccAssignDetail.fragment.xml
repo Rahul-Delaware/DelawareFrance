@@ -1,0 +1,101 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:smartField="sap.ui.comp.smartfield">
+	<Popover showHeader="false" placement="Auto" modal="true" contentMinWidth="300px" contentWidth="70%">
+			<Table id="itemAccAssignDetailTable">
+				<columns>
+					<Column >
+						<Label text="{i18n>GLAccount}" tooltip="{i18n>GLAccount}"
+							required="{= ${popupModel>/AccountAssignmentCategory} === 'K' ||
+							             ${popupModel>/AccountAssignmentCategory} === 'Y' ? true : false}"/>
+						<customData>
+							<core:CustomData key="p13nData"
+								value='\{"columnKey": "GLAccount", "leadingProperty":"GLAccount", "sortProperty": "GLAccount", "columnIndex": "10"}'/>
+						</customData>
+					</Column>
+					<Column>
+						<Label text="{i18n>CostCenter}" tooltip="{i18n>CostCenter}"
+							/>
+						<customData>
+							<core:CustomData key="p13nData"
+								value='\{"columnKey": "CostCenter", "leadingProperty":"CostCenter", "sortProperty": "CostCenter", "columnIndex": "20"}'/>
+						</customData>
+					</Column>
+					<Column>
+						<Label text="{i18n>CostCenterName}" tooltip="{i18n>CostCenterName}"/>
+						<customData>
+							<core:CustomData key="p13nData"
+								value='\{"columnKey": "CostCenterName", "leadingProperty":"CostCenterName", "sortProperty": "CostCenterName", "columnIndex": "25"}'/>
+						</customData>
+					</Column>
+					<Column visible="{= ${popupModel>/AccountAssignmentCategory} === 'A' ? true : false}">
+						<Label text="{i18n>MasterFixedAsset}"
+							tooltip="{i18n>MasterFixedAsset}" required="true"/>
+						<customData>
+							<core:CustomData key="p13nData"
+								value='\{"columnKey": "MasterFixedAsset", "leadingProperty":"MasterFixedAsset", "sortProperty": "MasterFixedAsset", "columnIndex": "30"}'/>
+						</customData>
+					</Column>
+					<Column visible="{= ${popupModel>/AccountAssignmentCategory} === 'A' ? true : false}">
+						<Label text="{i18n>FixedAsset}" tooltip="{i18n>FixedAsset}"/>
+						<customData>
+							<core:CustomData key="p13nData"
+								value='\{"columnKey": "FixedAsset", "leadingProperty":"FixedAsset", "sortProperty": "FixedAsset", "columnIndex": "35"}'/>
+						</customData>
+					</Column>
+					<Column visible="{= ${popupModel>/AccountAssignmentCategory} === 'K' ||
+					                    ${popupModel>/AccountAssignmentCategory} === '1' ? false : true}">
+						<Label text="{i18n>OrderID}" tooltip="{i18n>OrderID}"
+							required="true"/>
+						<customData>
+							<core:CustomData key="p13nData"
+								value='\{"columnKey": "OrderID", "leadingProperty":"OrderID", "sortProperty": "OrderID", "columnIndex": "40"}'/>
+						</customData>
+					</Column>
+					<Column visible="{= ${popupModel>/AccountAssignmentCategory} === 'K' ||
+					                    ${popupModel>/AccountAssignmentCategory} === '1' ? false : true}">
+						<Label text="{i18n>OrderName}" tooltip="{i18n>OrderName}"/>
+						<customData>
+							<core:CustomData key="p13nData"
+								value='\{"columnKey": "OrderName", "leadingProperty":"OrderName", "sortProperty": "OrderName", "columnIndex": "45"}'/>
+						</customData>
+					</Column>
+					<Column visible="false">
+						<Label text="{i18n>Quantity}" tooltip="{i18n>Quantity}"/>
+						<customData>
+							<core:CustomData key="p13nData"
+								value='\{"columnKey": "Quantity", "leadingProperty":"Quantity", "sortProperty": "Quantity", "columnIndex": "50"}'/>
+						</customData>
+					</Column>
+					<Column visible="false">
+						<Label text="{i18n>MultipleAcctAssgmtDistrPercent}"
+							tooltip="{i18n>MultipleAcctAssgmtDistrPercent}"/>
+						<customData>
+							<core:CustomData key="p13nData"
+								value='\{"columnKey": "MultipleAcctAssgmtDistrPercent", "leadingProperty":"MultipleAcctAssgmtDistrPercent", "sortProperty": "MultipleAcctAssgmtDistrPercent", "columnIndex": "60"}'/>
+						</customData>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<smartField:SmartField value="{GLAccount}" editable="false"/>
+						<smartField:SmartField value="{CostCenter}" editable="false"/>
+						<smartField:SmartField value="{CostCenterName}" editable="false"/>
+						<smartField:SmartField value="{MasterFixedAsset}" visible="{= ${popupModel>/AccountAssignmentCategory} === 'A' ? true : false}" editable="false"/>
+						<smartField:SmartField value="{FixedAsset}" visible="{= ${popupModel>/AccountAssignmentCategory} === 'A' ? true : false}" editable="false"/>
+						<smartField:SmartField id="OrderSmartField" value="{OrderID}" visible="{= ${popupModel>/AccountAssignmentCategory} === 'K' ? false : true}" editable="false"
+											   innerControlsCreated="onInnerOrderCreated" showSuggestion="false"/>
+						<smartField:SmartField value="{OrderName}" visible="{= ${popupModel>/AccountAssignmentCategory} === 'K' ? false : true}" editable="false"/>
+						<Text text="{Quantity}" visible="false"/>
+						<Text text="{MultipleAcctAssgmtDistrPercent}" visible="false"/>
+					</ColumnListItem>
+				</items>
+			</Table>
+		<!--</smartTable:SmartTable>-->
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>Close}" press="_onCloseAccAssignDetail"/>
+			</Toolbar>
+		</footer>
+	</Popover>
+</core:FragmentDefinition>

@@ -1,0 +1,126 @@
+{
+	"_version": "1.6.0",
+	"start_url": "noShellIndex.html",
+	"sap.app": {
+		"_version": "1.2.0",
+		"id": "elsan.zmmpur.puritems",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "6.0.14"
+		},
+		"title": "{{appTitle}}",
+		"ach": "MM-PUR-PO",
+		"dataSources": {
+			"ME2STAR_OD_SRV": {
+				"uri": "/sap/opu/odata/sap/ZZME2STAR_ODATA_SRV/",
+				"settings": {
+					"localUri": "../../test/model/mockData/metadata.xml"
+				}
+			}
+		},
+		"resources": "resources.json",
+		"crossNavigation": {
+			"inbounds": {
+				"purchasingDocumentItemDisplay": {
+					"semanticObject": "ZPurchasingDocumentItem",
+					"action": "display",
+					"deviceTypes": {
+						"desktop": true,
+						"tablet": true,
+						"phone": true
+					},
+					"signature": {
+						"parameters": {
+							"Supplier": {},
+							"PurchasingGroup": {},
+							"MaterialGroup": {},
+							"Plant": {},
+							"Status": {},
+							"CostCenter": {},
+							"SalesOrder": {}
+						},
+						"additionalParameters": "allowed"
+					}
+				}
+			}
+		}
+	},
+	"sap.copilot": {
+		"_version": "1.0.0",
+		"contextAnalysis": {
+			"allowAddingObjectsFromAppScreenToCollection": false
+		}
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": false
+		},
+		"supportedThemes": [
+			"sap_bluecrystal",
+			"sap_belize",
+			"sap_hcb"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"resources": {
+			"css": [
+				{
+					"uri": "css/custom.css"
+				}
+			]
+		},
+		"dependencies": {
+			"minUI5Version": "1.56.3",
+			"libs": {
+				"sap.ca.scfld.md": {
+					"minVersion": "1.56.3",
+					"lazy": false
+				},
+				"sap.ca.ui": {
+					"minVersion": "1.56.3",
+					"lazy": false
+				},
+				"sap.m": {
+					"minVersion": "1.56.3",
+					"lazy": false
+				},
+				"sap.me": {
+					"minVersion": "1.56.3",
+					"lazy": false
+				},
+				"sap.ui.comp": {
+					"lazy": false
+				},
+				"sap.ui.table": {
+					"lazy": false
+				}
+			}
+		},
+		"config": {
+			"fullWidth": true,
+			"sapFiori2Adaptation": true
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {}
+	},
+	"sap.platform.abap": {
+		"_version": "1.1.0",
+		"uri": "/http/ltmcvendor/prod/sap/zzmm_purdoc"
+	},
+	"sap.fiori": {
+		"_version": "1.1.0",
+		"registrationIds": [
+			"F0900"
+		],
+		"archeType": "transactional"
+	}
+}

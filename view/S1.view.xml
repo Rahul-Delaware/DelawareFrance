@@ -1,0 +1,1061 @@
+<!--
+
+    Copyright (C) 2009-2019 SAP SE or an SAP affiliate company. All rights reserved.
+
+-->
+<core:View xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.ui.table"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:filterBar="sap.ui.comp.filterbar" controllerName="elsan.zmmpur.puritems.view.S1"
+	xmlns:l="sap.ui.layout" xmlns:layout="sap.ui.layout">
+	<Page id="page" showHeader="true" title="{i18n>FULLSCREEN_TITLE}" floatingFooter="true">
+		<content>
+			<smartFilterBar:SmartFilterBar id="ME2STAR_SFB" entityType="/M2SOview" search="onSearchButtonPressed" reset="onReset"
+				beforeVariantSave="onBeforeVariantSave" afterVariantLoad="onAfterVariantLoad" persistencyKey="searchVariantme2star" class="sapUISizeCompact">
+				<smartFilterBar:controlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterSearchField" name="Search" key="Search" index="1" label="{i18n>SEARCH}" groupId="MAIN"
+						mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<SearchField id="searchField" showSearchButton="false" change="handleChangeInFilterBar" liveChange="_setFilterChanged"></SearchField>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					
+					<smartFilterBar:ControlConfiguration id="filterItemVenpdh" name="Venpdh" key="Venpdh" index="2" label="{i18n>VENPDH}" groupId="MAIN"
+						mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputVenpdh" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpVenpdh"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForVenpdh" suggestionRows="{VenpdhCollection>/VHVenpdh}"
+								change="handleChangeVenpdh">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>VENPDH}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{VenpdhCollection>Venpdh}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					
+						<smartFilterBar:ControlConfiguration id="filterItemPurchasingDocumentType" name="PurchasingDocumentType" key="PurchasingDocumentType"
+						index="3" label="{i18n>PURCHASING_DOCUMENT_TYPE}" groupId="MAIN" mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputPurchasingDocumentType" type="Text" showValueHelp="true"
+								valueHelpRequest="handleValueHelpPurchasingDocumentType" tokenChange="handleChangeInFilterBar"
+								suggest="suggestValuesForPurchasingDocumentType" suggestionRows="{PurchasingDocumentTypeCollection>/VHDocTyp}"
+								change="handleChangePurchasingDocumentType">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>PURCHASING_DOCUMENT_TYPE_G}"/>
+									</Column>
+									<!--<Column hAlign="End" popinDisplay="Inline" demandPopin="true">-->
+									<!--	<Label text="{i18n>PURCHASING_DOCUMENT_TYPE_NAME}"/>-->
+									<!--</Column>-->
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{PurchasingDocumentTypeCollection>PurchasingDocumentType}"/>
+											<!--<Label text="{PurchasingDocumentTypeCollection>PurgDocumentTypeDescription}"/>-->
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					
+					<smartFilterBar:ControlConfiguration id="filterItemSupplier" name="Supplier" key="Supplier" index="4" label="{i18n>SUPPLIERS}"
+						groupId="MAIN" mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputSupplier" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpSupplier"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForSupplier" suggestionRows="{SupplierCollection>/VHMMSupplier}"
+								change="handleChangeSupplier" maxSuggestionWidth="900px">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Block" demandPopin="true">
+										<Label text="{i18n>SUPPLIER}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true" width="200px">
+										<Label text="{i18n>SUPPLIER_NAME}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true" visible="false">
+										<Label text="{i18n>COMPANY}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true" visible="false">
+										<Label text="{i18n>PLANTN}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>COUNTRYN}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>CITYN}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>POSCODE}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>REGION}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{SupplierCollection>Supplier}"/>
+											<Label text="{SupplierCollection>SupplierName}"/>
+											<Label text="{SupplierCollection>CompanyCode}"/>
+											<Label text="{SupplierCollection>Plant}"/>
+											<Label text="{SupplierCollection>Country}"/>
+											<Label text="{SupplierCollection>CityName}"/>
+											<Label text="{SupplierCollection>PostalCode}"/>
+											<Label text="{SupplierCollection>Region}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					
+						<smartFilterBar:ControlConfiguration id="filterItemElStatus" name="ElStatus" key="ElStatus" index="5" label="{i18n>STATUS}" groupId="MAIN"
+						mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputElStatus" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpElStatus"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForElStatus" suggestionRows="{StatusElCollection>/VHElStatus}"
+								change="handleChangeElStatus" maxSuggestionWidth="400px">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>STATUS}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>DOCUMENT_STATUS_DES}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{StatusElCollection>ElStatus}"/>
+											<Label text="{StatusElCollection>StatusDescription}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					
+						<smartFilterBar:ControlConfiguration id="filterItemCreatDat" name="CreationDate" key="CreationDate" index="6" label="{i18n>Creation_DATE}"
+						groupId="MAIN" mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<DateRangeSelection id="filterBarInputCreationDate" change="handleChange" width="150px"/>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+				
+					
+					<smartFilterBar:ControlConfiguration id="filterItemDeliveryDate" name="DeliveryDate" key="DeliveryDate" index="7"
+						label="{i18n>DELIVERY_DATE}" groupId="MAIN" mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<DateRangeSelection id="filterBarInputDeliveryDate" change="handleChange"/>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					
+					<smartFilterBar:ControlConfiguration id="filterItemCompany" name="Company" key="Company" index="8" label="{i18n>COMPANY}" groupId="MAIN"
+						mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputCompany" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpCompany"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForCompany" suggestionRows="{CompanyCollection>/VHCompany}"
+								change="handleChangeCompany">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>COMPANY}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>COMPANY_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{CompanyCollection>Company}"/>
+											<Label text="{CompanyCollection>CompanyCodeName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					
+					<smartFilterBar:ControlConfiguration id="filterItemPurchasingOrganization" name="PurchasingOrganization" key="PurchasingOrganization"
+						index="9" label="{i18n>PURCHASING_ORGANIZATION}" groupId="MAIN" mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputPurchasingOrganization" type="Text" showValueHelp="true"
+								valueHelpRequest="handleValueHelpPurchasingOrganization" tokenChange="handleChangeInFilterBar"
+								suggest="suggestValuesForPurchasingOrganization" suggestionRows="{PurchasingOrganizationCollection>/VHPurchasingOrganization}"
+								change="handleChangePurchasingOrganization">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>PURCHASING_ORGANIZATION}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>PURCHASING_ORGANIZATION_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{PurchasingOrganizationCollection>PurchasingOrganization}"/>
+											<Label text="{PurchasingOrganizationCollection>PurchasingOrganizationName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+				
+				<smartFilterBar:ControlConfiguration id="filterItemCostCenter" name="CostCenter" key="CostCenter" index="10" label="{i18n>COST_CENTER}"
+						groupId="MAIN" mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputCostCenter" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpCostCenter"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForCostCenter" suggestionRows="{CostCenterCollection>/VHCostCenter}"
+								change="handleChangeCostCenter">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>COST_CENTER}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>CONTROLLING_AREA}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{CostCenterCollection>CostCenter}"/>
+											<Label text="{CostCenterCollection>ControllingArea}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					
+					<smartFilterBar:ControlConfiguration id="filterItemRequi" name="Requi" key="Requi" index="11" label="{i18n>REQU}" groupId="MAIN"
+						mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputRequi" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpRequi"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForRequi" suggestionRows="{RequiCollection>/VHRequi}" change="handleChangeRequi">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>REQU}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>REQUI_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{RequiCollection>Requi}"/>
+											<Label text="{RequiCollection>RequiName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterItemPerIn" name="Zzpersonincharge" key="Zzpersonincharge" index="12" label="{i18n>PERIN}"
+						groupId="MAIN" mandatory="notMandatory" visibleInAdvancedArea="true">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputPerIn" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpInch"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForInch" suggestionRows="{InchCollection>/VHInch}" change="handleChangeInch">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>PERIN}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>REQUI_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{InchCollection>Zzpersonincharge}"/>
+											<Label text="{InchCollection>InchName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+				
+					
+					<smartFilterBar:ControlConfiguration id="filterItemPurchasingGroup" name="PurchasingGroup" key="PurchasingGroup" index="13"
+						label="{i18n>PURCHASING_GROUP}" groupId="ADVANCED" mandatory="notMandatory" visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputPurchasingGroup" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpPurchasingGroup"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForPurchasingGroup" suggestionRows="{PurchasingGroupCollection>/VHPurGroup}"
+								change="handleChangePurchasingGroup">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>PURCHASING_GROUP}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>PURCHASING_GROUP_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{PurchasingGroupCollection>PurchasingGroup}"/>
+											<Label text="{PurchasingGroupCollection>PurchasingGroupName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<!---->
+					<!---->
+					<smartFilterBar:ControlConfiguration id="filterItemMaterialGroup" name="MaterialGroup" key="MaterialGroup" index="14"
+						label="{i18n>MATERIAL_GROUP}" groupId="ADVANCED" mandatory="notMandatory" visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputMaterialGroup" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpMaterialGroup"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForMaterialGroup" suggestionRows="{MaterialGroupCollection>/VHMatGroup}"
+								change="handleChangeMaterialGroup">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>MATERIAL_GROUP}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>MATERIAL_GROUP_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{MaterialGroupCollection>MaterialGroup}"/>
+											<Label text="{MaterialGroupCollection>MaterialGroupName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterItemPlant" name="Plant" key="Plant" index="15" label="{i18n>PLANTS}" groupId="ADVANCED"
+						mandatory="notMandatory" visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputPlant" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpPlant"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForPlant" suggestionRows="{PlantCollection>/VHPlant}" change="handleChangePlant">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>PLANTS}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>PLANT_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{PlantCollection>Plant}"/>
+											<Label text="{PlantCollection>PlantName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<!--<smartFilterBar:ControlConfiguration-->
+					<!--	id="filterItemStatus" name="Status" key="Status" index="7"-->
+					<!--	label="{i18n>STATUS}" groupId="MAIN" mandatory="notMandatory"-->
+					<!--	visibleInAdvancedArea="true">-->
+					<!--	<smartFilterBar:customControl>-->
+					<!--		<MultiInput id="filterBarInputStatus" type="Text"-->
+					<!--			showValueHelp="true" valueHelpRequest="handleValueHelpStatus"-->
+					<!--			tokenChange="handleChangeInFilterBar" suggest="suggestValuesForStatus"-->
+					<!--			suggestionRows="{StatusCollection>/VHStatus}" change="handleChangeStatus">-->
+					<!--			<suggestionColumns>-->
+					<!--				<Column hAlign="Begin" popinDisplay="Inline"-->
+					<!--					demandPopin="true">-->
+					<!--					<Label text="{i18n>STATUS}" />-->
+					<!--				</Column>-->
+					<!--				<Column hAlign="End" popinDisplay="Inline" demandPopin="true">-->
+					<!--					<Label text="{i18n>DOCUMENT_STATUS_DES}" />-->
+					<!--				</Column>-->
+					<!--			</suggestionColumns>-->
+					<!--			<suggestionRows>-->
+					<!--				<ColumnListItem>-->
+					<!--					<cells>-->
+					<!--						<Label text="{StatusCollection>Status}" />-->
+					<!--						<Label text="{StatusCollection>StatusDescription}" />-->
+					<!--					</cells>-->
+					<!--				</ColumnListItem>-->
+					<!--			</suggestionRows>-->
+					<!--		</MultiInput>-->
+					<!--	</smartFilterBar:customControl>-->
+					<!--</smartFilterBar:ControlConfiguration>-->
+					<smartFilterBar:ControlConfiguration id="filterItemWBSElement" name="WBSElementExternalID" key="WBSElementExternalID" index="16"
+						label="{i18n>WORK_PACKAGE}" groupId="ADVANCED" mandatory="notMandatory" visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputWBSElement" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpWBSElement"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForWBSElement" suggestionRows="{WBSElementCollection>/VHWBSElement}"
+								change="handleChangeWBSElement">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>WORK_PACKAGE_ID}"/>
+										<Label text="{i18n>WORK_PACKAGE}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{WBSElementCollection>WBSElementFullName}"/>
+											<Label text="{WBSElementCollection>WBSElementExternalId}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterItemSalesOrder" name="SalesOrder" key="SalesOrder" index="17" label="{i18n>SALES_ORDER}"
+						groupId="ADVANCED" mandatory="notMandatory" visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputSalesOrder" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpSalesOrder"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForSalesOrder" suggestionRows="{SalesOrderCollection>/VHSalesOrder}"
+								change="handleChangeSalesOrder">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>SALES_ORDER}"/>
+									</Column>
+									<!--<Column hAlign="End" popinDisplay="Inline"
+										demandPopin="true">
+										<Label text="{i18n>SALES_ORDER_NAME}" />
+									</Column>-->
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{SalesOrderCollection>SalesOrder}"/>
+											<!--<Label text="{SalesOrderCollection>SalesOrderName}" />-->
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterItemServicePerformer" name="ServicePerformer" key="ServicePerformer" index="18"
+						label="{i18n>SERVICE_PERFORMER}" groupId="ADVANCED" mandatory="notMandatory" visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputServicePerformer" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpServicePerformer"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForServicePerformer"
+								suggestionRows="{ServicePerformerCollection>/VHServicePerformer}" change="handleChangeServicePerformer">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>SERVICE_PERFORMER}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>SERVICE_PERFORMER_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{ServicePerformerCollection>ServicePerformer}"/>
+											<Label text="{ServicePerformerCollection>ServicePerformerName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterItemWorkItem" name="WorkItem" key="WorkItem" index="19" label="{i18n>WORK_ITEM}"
+						groupId="ADVANCED" mandatory="notMandatory" visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputWorkItem" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpWorkItem"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForWorkItem" suggestionRows="{WorkItemCollection>/VHWorkItem}"
+								change="handleChangeWorkItem">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>WORK_ITEM}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>WORK_ITEM_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{WorkItemCollection>WorkItem}"/>
+											<Label text="{WorkItemCollection>WorkItemName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterItemMaterial" name="Material" key="Material" index="20" label="{i18n>MATERIAL}"
+						groupId="ADVANCED" mandatory="notMandatory" visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputMaterial" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpMaterial"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForMaterial" suggestionRows="{MaterialCollection>/VHMaterial}"
+								change="handleChangeMaterial">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>MATERIAL}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>MATERIAL_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{MaterialCollection>Material}"/>
+											<Label text="{MaterialCollection>MaterialName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterItemSupplyingPlant" name="SupplyingPlant" key="SupplyingPlant" index="21"
+						label="{i18n>SUPPLYING_PLANT}" groupId="ADVANCED" mandatory="notMandatory" visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputSupplyingPlant" type="Text" showValueHelp="true" valueHelpRequest="handleValueHelpSupplyingPlant"
+								tokenChange="handleChangeInFilterBar" suggest="suggestValuesForSupplyingPlant" suggestionRows="{SupplyingPlantCollection>/VHSupplyingPlant}"
+								change="handleChangeSupplyingPlant">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>SUPPLYING_PLANT}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>SUPPLYING_PLANT_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{SupplyingPlantCollection>SupplyingPlant}"/>
+											<Label text="{SupplyingPlantCollection>SupplyingPlantName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterItemPurchasingDocumentItemText" name="PurchasingDocumentItemText"
+						key="PurchasingDocumentItemText" index="22" label="{i18n>SHORT_TEXT}" groupId="ADVANCED" mandatory="notMandatory"
+						visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputPurchasingDocumentItemText" type="Text" showValueHelp="true"
+								valueHelpRequest="handleValueHelpPurchasingDocumentItemText" tokenChange="handleChangeInFilterBar"
+								suggest="suggestValuesForPurchasingDocumentItemText" suggestionRows="{PurchasingDocumentItemTextCollection>/VHPurchasingDocumentItemText}"
+								change="handleChangePurchasingDocumentItemText">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>SHORT_TEXT}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{PurchasingDocumentItemTextCollection>PurchasingDocumentItemText}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterItemPurchaseOrderItemCategory" name="PurchaseOrderItemCategory"
+						key="PurchaseOrderItemCategory" index="23" label="{i18n>PURCHASE_ORDER_ITEM_CATEGORY}" groupId="ADVANCED" mandatory="notMandatory"
+						visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputPurchaseOrderItemCategory" type="Text" showValueHelp="true"
+								valueHelpRequest="handleValueHelpPurchaseOrderItemCategory" tokenChange="handleChangeInFilterBar"
+								suggest="suggestValuesForPurchaseOrderItemCategory" suggestionRows="{PurchaseOrderItemCategoryCollection>/VHPurchaseOrderItemCategory}"
+								change="handleChangePurchaseOrderItemCategory">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>PURCHASE_ORDER_ITEM_CATEGORY}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>PURCHASE_ORDER_ITEM_CATEGORY_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{PurchaseOrderItemCategoryCollection>PurchaseOrderItemCategory}"/>
+											<Label text="{PurchaseOrderItemCategoryCollection>PurgDocItemCategoryName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<smartFilterBar:ControlConfiguration id="filterItemAccountAssignmentCategory" name="AccountAssignmentCategory"
+						key="AccountAssignmentCategory" index="24" label="{i18n>ACCOUNT_ASSIGNMENT_CATEGORY}" groupId="ADVANCED" mandatory="notMandatory"
+						visibleInAdvancedArea="false">
+						<smartFilterBar:customControl>
+							<MultiInput id="filterBarInputAccountAssignmentCategory" type="Text" showValueHelp="true"
+								valueHelpRequest="handleValueHelpAccountAssignmentCategory" tokenChange="handleChangeInFilterBar"
+								suggest="suggestValuesForAccountAssignmentCategory" suggestionRows="{AccountAssignmentCategoryCollection>/VHAccountAssignmentCategory}"
+								change="handleChangeAccountAssignmentCategory">
+								<suggestionColumns>
+									<Column hAlign="Begin" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>ACCOUNT_ASSIGNMENT_CATEGORY}"/>
+									</Column>
+									<Column hAlign="End" popinDisplay="Inline" demandPopin="true">
+										<Label text="{i18n>ACCOUNT_ASSIGNMENT_CATEGORY_NAME}"/>
+									</Column>
+								</suggestionColumns>
+								<suggestionRows>
+									<ColumnListItem>
+										<cells>
+											<Label text="{AccountAssignmentCategoryCollection>AccountAssignmentCategory}"/>
+											<Label text="{AccountAssignmentCategoryCollection>AcctAssignmentCategoryName}"/>
+										</cells>
+									</ColumnListItem>
+								</suggestionRows>
+							</MultiInput>
+						</smartFilterBar:customControl>
+					</smartFilterBar:ControlConfiguration>
+					<!-- Ajout ACN -->
+					<!-- Extends the SmartFilterBar -->
+					<core:ExtensionPoint name="SmartFilterExtension"/>
+					<!-- Fin Ajout ACN -->
+				</smartFilterBar:controlConfiguration>
+				<smartFilterBar:groupConfiguration>
+					<smartFilterBar:GroupConfiguration key="ADVANCED" label="{i18n>ADDITIONAL_FILTER}"></smartFilterBar:GroupConfiguration>
+				</smartFilterBar:groupConfiguration>
+			</smartFilterBar:SmartFilterBar>
+			<IconTabBar class="iconTabBarPaddingTop" id="v210IconTabBar" select="tabSelected" expanded="{device>/isNoPhone}">
+				<items>
+					<IconTabFilter text="{i18n>OVERVIEW}" id="overviewTab" key="ALL" design="Vertical">
+						<!-- The whole table binding will be set in method onSearchButtonPressed within file SmartFilterBarHandling to avoid initial loading -->
+						<!-- The table template for items is defined there as well, we let in here just for reference -->
+						<!-- Table item binding is deleted here, but the same string which is now in the file mentioned above -->
+						<Table growing="true" growingScrollToLoad="true" showNoData="true" id="overviewTable">
+							<headerToolbar>
+								<Toolbar>
+									<Label id="overviewLbl"/>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://group-2" tap="callGroupDialog" tooltip="{i18n>GROUP_TOOLTIP}"/>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column id="Supplier_col">
+									<Text text="{i18n>SUPPLIER}"/>
+								</Column>
+								<Column visible="false" id="MaterialGroup_col">
+									<Text text="{i18n>MATERIAL_GROUP}"/>
+								</Column>
+								<Column visible="false" id="PurchasingGroup_col">
+									<Text text="{i18n>PURCHASING_GROUP}"/>
+								</Column>
+								<Column visible="false" id="Plant_col">
+									<Text text="{i18n>PLANTS}"/>
+								</Column>
+								<Column visible="false" id="Status_col">
+									<Text text="{i18n>STATUS}"/>
+								</Column>
+								<Column minScreenWidth="Large" demandPopin="true" hAlign="Right">
+									<Text text="{i18n>PRs}"/>
+								</Column>
+								<Column minScreenWidth="Large" demandPopin="true" hAlign="Right">
+									<Text text="{i18n>POs}"/>
+								</Column>
+								<Column minScreenWidth="Large" demandPopin="true" hAlign="Right">
+									<Text text="{i18n>GRs}"/>
+								</Column>
+								<Column minScreenWidth="Large" demandPopin="true" hAlign="Right">
+									<Text text="{i18n>SIs}"/>
+								</Column>
+							</columns>
+							<!--<items>
+								<ColumnListItem vAlign="Middle">
+									<cells>
+										<ObjectListItem id="Supplier" title="{Supplier}">
+											<attributes>
+												<ObjectAttribute
+													text="{path: 'SupplierName', formatter:'elsan.zmmpur.puritems.util.formatter.IDBraces'}" />
+											</attributes>
+										</ObjectListItem>
+										<ObjectListItem id="MaterialGroup" title="{MaterialGroup}"
+											visible="false">
+											<attributes>
+												<ObjectAttribute text="{path: 'MaterialGroupName', formatter:'elsan.zmmpur.puritems.util.formatter.IDBraces'}" />
+											</attributes>
+										</ObjectListItem>
+										<ObjectListItem id="PurchasingGroup" title="{PurchasingGroup}"
+											visible="false">
+											<attributes>
+												<ObjectAttribute text="{path: 'PurchasingGroupName', formatter:'elsan.zmmpur.puritems.util.formatter.IDBraces'}" />
+											</attributes>
+										</ObjectListItem>
+										<ObjectListItem id="Plant" title="{Plant}"
+											visible="false">
+											<attributes>
+												<ObjectAttribute text="{PlantName}" />
+											</attributes>
+										</ObjectListItem>
+										<ObjectListItem id="Status" title="{StatusText}"
+											visible="false">
+										</ObjectListItem>
+										<Link text="{CntB}" press="handleNavigation" />
+										<Link text="{CntF}" press="handleNavigation" />
+										<Link text="{CntG}" press="handleNavigation" />
+										<Link text="{CntS}" press="handleNavigation" />
+									</cells>
+								</ColumnListItem>
+							</items>-->
+						</Table>
+					</IconTabFilter>
+					<IconTabFilter text="{i18n>PRTab}" id="PRTab" key="PR" design="Vertical">
+						<Table id="PRTable" growing="true" growingScrollToLoad="true" showNoData="false" mode="SingleSelectMaster" itemPress="handleSelectPR">
+							<headerToolbar>
+								<Toolbar>
+									<Label id="prLbl"/>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://group-2" tap="callGroupDialog" tooltip="{i18n>GROUP_TOOLTIP}"/>
+									<Button id="SortPR" icon="sap-icon://sort" tap="callSortDialog"/>
+									<Button icon="sap-icon://action-settings" press="onPersoButtonPressed"/>
+									<Button id="PRDownload" icon="sap-icon://excel-attachment" press="onDataExport" tooltip="{i18n>TOOLTIP_DOWNLOAD}"
+										visible="{parts: [{path:'EntityState'}], formatter:'elsan.zmmpur.puritems.util.formatter.isDownloadButtonVisible'}"/>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column id="DocumentPR">
+									<Text text="{i18n>DOCUMENTPR}"/>
+								</Column>
+								<Column id="CompnayCodePR">
+									<Text text="{i18n>COMPANY}"/>
+								</Column>
+				
+								<!---->
+								<Column id="PurchasingOrganizationPR" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>PURCHASING_ORG}"/>
+								</Column>
+								
+								<Column id="Supp" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>SUPPLIERN}"/>
+								</Column>
+								
+								<Column id="PRTyp" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>PRTYP}"/>
+								</Column>
+								
+								<Column id="Description" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>DESCRIPTION}"/>
+								</Column>
+								
+								<Column id="SuppMat" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>SUPPMAT}"/>
+								</Column>
+								
+								<Column id="materialPR" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>MATERIALCK}"/>
+								</Column>
+								
+								<Column id="Price" demandPopin="true" minScreenWidth="Tablet" hAlign="Center" width="80px">
+									<Text text="{i18n>PRICE}" hAlign="Center"/>
+								</Column>
+								
+								<Column id="PRDate" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>PRDATE}"/>
+								</Column>
+								
+								<Column id="Assig" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>ASSIGMNENT}"/>
+								</Column>
+								
+								<Column id="Requ" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>REQU}"/>
+								</Column>
+								
+								<Column id="StatusPR" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>STATUS}"/>
+								</Column>
+								
+								<Column id="PerIn" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>PERIN}"/>
+								</Column>
+								
+								<Column id="PO" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>PO}"/>
+								</Column>
+								
+								<Column id="materialPRCode" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>MATERIALC}"/>
+								</Column>
+								<!---->
+
+								<!---->
+								<Column id="QunatityPR" demandPopin="true" minScreenWidth="Tablet" hAlign="Right" visible="false">
+									<Text text="{i18n>QUANTITY}"/>
+								</Column>
+								<Column id="RequesterPR" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>REQUESTOR}"/>
+								</Column>
+								<Column id="recievingPlantPR" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>RECEIVING_PLANT}"/>
+								</Column>
+
+								<Column id="RelevancePR" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>RELEVANCE}"/>
+								</Column>
+								<!-- Extends the column for PR Table -->
+								<core:ExtensionPoint name="PRExtensionCol"/>
+							</columns>
+						</Table>
+					</IconTabFilter>
+					<IconTabFilter text="{i18n>POTab}" id="POTab" key="PO" design="Vertical">
+						<Table id="POTable" growing="true" growingScrollToLoad="true" showNoData="false" mode="SingleSelectMaster" itemPress="handleSelectPO">
+							<headerToolbar>
+								<Toolbar>
+									<Label id="poLbl"/>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://group-2" tap="callGroupDialog" tooltip="{i18n>GROUP_TOOLTIP}"/>
+									<Button id="SortPO" icon="sap-icon://sort" press="callSortDialog_wbs"/>
+									<Button icon="sap-icon://action-settings" press="onPersoButtonPressed"/>
+									<Button id="PODownload" icon="sap-icon://excel-attachment" press="onDataExport" tooltip="{i18n>TOOLTIP_DOWNLOAD}"
+										visible="{parts: [{path:'EntityState'}], formatter:'elsan.zmmpur.puritems.util.formatter.isDownloadButtonVisible'}"/>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column id="selectPO" vAlign="Middle" demandPopin="true">
+									<Text text="{i18n>SELECTION}" tooltip="{i18n>SELECTION}"/>
+								</Column>
+								
+								<Column id="DocumentPO" width="90px">
+									<Text text="{i18n>DOCUMENTPO}"/>
+								</Column>
+								
+								<Column id="CompnayCodePO">
+									<Text text="{i18n>COMPANY}"/>
+								</Column>
+								<Column id="PurchasingOrganizationPO" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>PURCHASING_ORG}"/>
+								</Column>
+								
+								<Column id="VenpdhPO">
+									<Text text="{i18n>VENPDH}"/>
+								</Column>
+								
+								<Column id="SuppPO">
+									<Text text="{i18n>SUPPLIERN}"/>
+								</Column>
+								
+								<Column id="POTyp">
+									<Text text="{i18n>POTYP}"/>
+								</Column>
+								
+								<Column width="150px" id="MaterialPO" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>MATERIALPO}"/>
+								</Column>
+								
+								<Column id="PODate" width="80px">
+									<Text text="{i18n>PODATE}"/>
+								</Column>
+								
+								<Column id="OrdervaluePO" demandPopin="true" minScreenWidth="Tablet" hAlign="Right">
+									<Text text="{i18n>ORDER_VALUE}"/>
+								</Column>
+								
+								<Column id="AssigPO">
+									<Text text="{i18n>ASSIGMNENT}"/>
+								</Column>
+								
+								<Column id="StatusPO" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>STATUS}"/>
+								</Column>
+								
+								<Column id="EmailStat">
+									<Text text="{i18n>EMAILSTATU}"/>
+								</Column>
+								
+								<Column id="RequPO">
+									<Text text="{i18n>REQU}"/>
+								</Column>
+								
+								<Column id="PerIncPO" visible="true">
+									<Text text="{i18n>PERIN}"/>
+								</Column>
+								
+								<Column id="PRPO">
+									<Text text="{i18n>PR}"/>
+								</Column>
+								
+
+		
+								<Column id="QuantityPO" demandPopin="true" minScreenWidth="Tablet" hAlign="Right">
+									<Text text="{i18n>QUANTITY}"/>
+								</Column>
+							
+								<Column id="InvoicedQuantityPO" demandPopin="true" minScreenWidth="Tablet" hAlign="Right" visible="false">
+									<Text text="{i18n>INVOICED_QUANTITY}"/>
+								</Column>
+								<Column id="invoicevaluePO" demandPopin="true" minScreenWidth="Tablet" hAlign="Right" visible="false">
+									<Text text="{i18n>INVOICE_VALUE}"/>
+								</Column>
+								
+								<Column id="CostCenterPO" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>COST_CENTER}"/>
+								</Column>
+								<Column id="WBSElementPO" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>WORK_PACKAGE}"/>
+								</Column>
+								<Column id="SalesorderPO" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>SALES_ORDER}"/>
+								</Column>
+								<Column id="ServicePerformerPO" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>SERVICE_PERFORMER}"/>
+								</Column>
+								<Column id="DeliveryDatePO" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>DELIVERY_DATE}"/>
+								</Column>
+								<Column id="SupplyingPlantPO" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>SUPPLYING_PLANT}"/>
+								</Column>
+								<Column id="ShortTextPO" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>SHORT_TEXT}"/>
+								</Column>
+								<Column id="PurchaseOrderItemCategoryPO" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>PURCHASE_ORDER_ITEM_CATEGORY}"/>
+								</Column>
+								<Column id="AccountAssignmentCategoryPO" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>ACCOUNT_ASSIGNMENT_CATEGORY}"/>
+								</Column>
+								<Column id="RelevancePO" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>RELEVANCE}"/>
+								</Column>
+								<!-- Extends the column for PO Table -->
+								<core:ExtensionPoint name="POExtensionCol"/>
+							</columns>
+						</Table>
+					</IconTabFilter>
+					<IconTabFilter text="{i18n>GRTab}" id="GRTab" key="GR" design="Vertical">
+						<Table id="GRTable" growing="true" growingScrollToLoad="true" showNoData="false" mode="SingleSelectMaster" itemPress="handleSelectGR">
+							<headerToolbar>
+								<Toolbar>
+									<Label id="grLbl"/>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://group-2" tap="callGroupDialog" tooltip="{i18n>GROUP_TOOLTIP}"/>
+									<Button id="SortGR" icon="sap-icon://sort" tap="callSortDialog_GR"/>
+									<Button icon="sap-icon://action-settings" press="onPersoButtonPressed"/>
+									<Button id="GRDownload" icon="sap-icon://excel-attachment" press="onDataExport" tooltip="{i18n>TOOLTIP_DOWNLOAD}"
+										visible="{parts: [{path:'EntityState'}], formatter:'elsan.zmmpur.puritems.util.formatter.isDownloadButtonVisible'}"/>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column id="MaterialDocGR" visible="false">
+									<Text text="{i18n>DOCUMENT}"/>
+								</Column>
+								<Column id="RefrencePurOdrGR" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>REFERENCE_PURCHASEORDER}"/>
+								</Column>
+								<Column id="PurchasingOrganizationGR" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>PURCHASING_ORG}"/>
+								</Column>
+							
+								<Column id="SuppGR">
+									<Text text="{i18n>SUPPLIERN}"/>
+								</Column>
+								<Column id="MaterialGR" demandPopin="true" minScreenWidth="Tablet">
+								   <Text text="{i18n>MATERIALGR}"/>
+								</Column>
+								<Column id="QuantityGR" demandPopin="true" minScreenWidth="Tablet" hAlign="Right">
+									<Text text="{i18n>QUANTITY}"/>
+								</Column>
+								<Column id="ExpectedDelDateGR" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>EXPECTED_DEL_DATE}"/>
+								</Column>
+								<Column id="PostingDateGR" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>POSTING_DATE}"/>
+								</Column>
+								<Column id="ServicePerformerGR" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>SERVICE_PERFORMER}"/>
+								</Column>
+								<Column id="WorkItemGR" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>WORK_ITEM}"/>
+								</Column>
+								<Column id="StatusGR" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>STATUS}"/>
+								</Column>
+								<Column id="VenpdhGR">
+									<Text text="{i18n>VENPDH}"/>
+								</Column>
+								<!-- Extends the column for GR Table -->
+								<core:ExtensionPoint name="GRExtensionCol"/>
+							</columns>
+						</Table>
+					</IconTabFilter>
+					<IconTabFilter text="{i18n>SupInvTab}" id="SITab" key="SI" design="Vertical">
+						<Table id="SITable" growing="true" growingScrollToLoad="true" showNoData="false" mode="SingleSelectMaster" itemPress="handleSelectSI">
+							<headerToolbar>
+								<Toolbar>
+									<Label id="siLbl"/>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://group-2" tap="callGroupDialog" tooltip="{i18n>GROUP_TOOLTIP}"/>
+									<Button id="SortSI" icon="sap-icon://sort" tap="callSortDialog_SI"/>
+									<Button icon="sap-icon://action-settings" press="onPersoButtonPressed"/>
+									<Button id="SIDownload" icon="sap-icon://excel-attachment" press="onDataExport" tooltip="{i18n>TOOLTIP_DOWNLOAD}"
+										visible="{parts: [{path:'EntityState'}], formatter:'elsan.zmmpur.puritems.util.formatter.isDownloadButtonVisible'}"/>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column id="DocumentSI">
+									<Text text="{i18n>DOCUMENT}"/>
+								</Column>
+								<Column id="PurchasingOrganizationSI" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>PURCHASING_ORG}"/>
+								</Column>
+							
+								<Column id="SuppSI">
+									<Text text="{i18n>SUPPLIERN}"/>
+								</Column>
+								<Column id="MaterialSI" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>MATERIALGR}"/>
+								</Column>
+								<Column id="QuantitySI" demandPopin="true" minScreenWidth="Tablet" hAlign="Right">
+									<Text text="{i18n>QUANTITY}"/>
+								</Column>
+								<Column id="OrderValueSI" demandPopin="true" minScreenWidth="Tablet" hAlign="Right">
+									<Text text="{i18n>ORDER_VALUE}"/>
+								</Column>
+								<Column id="invoicedQuantitySI" demandPopin="true" minScreenWidth="Tablet" hAlign="Right">
+									<Text text="{i18n>INVOICED_QUANTITY}"/>
+								</Column>
+								<Column id="InvoiceValueSI" demandPopin="true" minScreenWidth="Tablet" hAlign="Right">
+									<Text text="{i18n>INVOICE_VALUE}"/>
+								</Column>
+								<Column id="StatusSI" demandPopin="true" minScreenWidth="Tablet">
+									<Text text="{i18n>STATUS}"/>
+								</Column>
+								<Column id="CostCenterSI" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>COST_CENTER}"/>
+								</Column>
+								<Column id="WBSElementSI" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>WORK_PACKAGE}"/>
+								</Column>
+								<Column id="SalesOrderSI" demandPopin="true" minScreenWidth="Tablet" visible="false">
+									<Text text="{i18n>SALES_ORDER}"/>
+								</Column>
+								<Column id="VenpdhSI">
+									<Text text="{i18n>VENPDH}"/>
+								</Column>
+								<Column id="DocSI">
+									<Text text="{i18n>ZDOC}"/>
+								</Column>
+								
+								<!-- Extends the column for SI Table -->
+								<core:ExtensionPoint name="SIExtensionCol"/>
+							</columns>
+						</Table>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
+		<!-- <footer> <Bar> <contentRight> <Button text="{i18n>CREATE_PO}" id="ft_PO" 
+			press="CreatePO" type="Emphasized" visible="false" /> <Button text="{i18n>POST_GR}" 
+			id="ft_PostGR" press="PostGR" visible="false" /> </contentRight> </Bar> </footer> -->
+	</Page>
+</core:View>

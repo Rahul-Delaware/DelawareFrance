@@ -1,0 +1,23 @@
+.Pad {
+    margin-right: 15px
+}
+
+.Pad2 {
+    margin-right: 15px;
+    margin-left: 15px
+}
+
+.sapUiHLayoutChildWrapper {
+    vertical-align: middle
+}
+
+.bigSelect,
+.bigInput,
+.bigInput input {
+    height: 3rem
+}
+
+.bigSelect label,
+.bigSelect span {
+    line-height: 3rem
+}
